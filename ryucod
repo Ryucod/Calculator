@@ -1,0 +1,132 @@
+package ryucod.java.exam01;
+
+import java.awt.BorderLayout;
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.GridLayout;
+import java.awt.Label;
+import java.awt.Panel;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+
+public class Calculator extends Frame implements ActionListener{
+	
+	//멤버필드
+	private static final long serialVersionUID = 1L;
+	//화면에 필요한 구성요소--------------------------------------------------
+	private String[] str = {"7","8","9","4","5","6","1","2","3","0","+/-","."};
+	private Button[] numBt = new Button[str.length];
+	private String[] funstr = {"BackSpace","CE","C"};
+	private Button[] funBt = new Button[funstr.length];
+	private String[] operstr = {"+","-","*","/"};
+	private Button[] operBt = new Button[operstr.length];
+	private Button equBt = new Button("=");
+	private Label mainLabel = new Label("0.", Label.RIGHT);
+	private Font f;
+	
+	private boolean first = true;//true면 처음이다. false면 처음이 아니다
+	private boolean jumcheck = false;//false면 점을 누른적 업다. true면 점을 누른적이 있다.
+	
+	//생성자
+	public Calculator() {
+		super("Calculator");
+		setEvent();//이벤트 구성
+		buildGUI();//화면 구성
+	}
+	
+	//메서드
+	private void setEvent() {//이벤트구성
+//		for(int i=0; i<numBt.length; i++) 
+//	         numBt[i].addActionListener(this);
+	      
+//	    for(int i=0; i<funBt.length; i++)
+//	         funBt[i].addActionListener(this);
+//	      
+//	    for(int i=0; i<operBt.length; i++)
+//	         operBt[i].addActionListener(this);
+//	      
+//	      equBt.addActionListener(this);
+//
+//		addWindowListener(new WindowAdapter(){
+//			public void windowClosing(WindowEvent e) {
+//				System.exit(0);
+//			}
+//		});
+	}
+	
+	
+	private void buildGUI() {//화면구성
+		f = new Font("Sans-Serif", Font.BOLD, 20);
+		mainLabel.setBackground(Color.white);
+		mainLabel.setFont(f);
+		setBackground(new Color(180,211,211));
+		setLayout(new BorderLayout(3, 3));
+		add("North", new Label());
+		add("South", new Label());
+		add("West", new Label());
+		add("East", new Label());
+		
+			Panel mainPanel = new Panel(new BorderLayout(3,3));
+			
+				mainPanel.add("North", mainLabel);
+				
+					Panel cPanel = new Panel(new GridLayout(1,2,3,3));
+						Panel clPanel = new Panel(new GridLayout(4,3,3,3));
+						for(int i=0; i<numBt.length; i++) {
+							numBt[i] = new Button(str[i]);
+						clPanel.add(numBt[i]);
+						}
+					cPanel.add(clPanel);
+					
+						Panel crPanel = new Panel(new GridLayout(4,1,3,3));
+							Panel p1 = new Panel(new GridLayout(1,3,3,3));
+							for(int i=0; i<funBt.length; i++) {
+			                     funBt[i] = new Button(funstr[i]);
+			                     funBt[i].setFont(f);
+			                     p1.add(funBt[i]);
+			                  }
+						crPanel.add(p1);
+	
+							Panel p2 = new Panel(new GridLayout(1,2,3,3));
+							Panel p3 = new Panel(new GridLayout(1,2,3,3));
+								for(int i=0; i<operBt.length; i++) {
+				                     operBt[i] = new Button(operstr[i]);
+				                     operBt[i].setFont(f);
+				                     if(i<2) p2.add(operBt[i]);
+				                     else p3.add(operBt[i]);
+				                  }
+						crPanel.add(p2);	
+						crPanel.add(p3);	
+						crPanel.add(equBt);
+					cPanel.add(crPanel);
+				mainPanel.add("Center", cPanel);
+		add("Center", mainPanel);
+		
+		pack();
+		setResizable(false);
+		
+		Dimension scr = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension my = getSize();
+	      
+	    setLocation(scr.width/2-my.width/2, scr.height/2-my.height/2);
+
+		setVisible(true);
+		
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+	}
+
+	public static void main(String[] args) {
+		new Calculator();
+	}
+}
